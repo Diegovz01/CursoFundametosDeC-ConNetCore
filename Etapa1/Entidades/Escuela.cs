@@ -15,7 +15,8 @@ namespace CoreEscuela.Entidades
         public int AñoDeCreacion { get; set; } // prop - atajo para crear una propiedad.
         public string Pais { get; set; }
         public string Ciudad { get; set; }
-        private int myVar;
+        public TiposEscuela TipoEscuela { get; set; }
+        public Curso[] Cursos { get; set; }
 
         // Todo objeto para que se pueda crear.
         // Cuenta con el método Constructor.
@@ -32,5 +33,18 @@ namespace CoreEscuela.Entidades
         // Atajo, escribirlo de manera mas corta:
         // Igualación por tuplas
         public Escuela(string nombre, int año) => (Nombre, AñoDeCreacion) = (nombre, año);
+        public Escuela(string nombre, int año, TiposEscuela tipo, string pais = "", string ciudad = "")
+        {
+            (Nombre, AñoDeCreacion) = (nombre, año);
+            Pais = pais;
+            Ciudad = ciudad;
+        }
+
+        public override string ToString()
+        {
+            return $"Nombre: \"{Nombre}\", Tipo: {TipoEscuela} \nPais: {Pais}, Ciudad: {Ciudad}";
+        }
+        // Palabra calve 'override' -> Sobrescribir
+        //Método ToString();
     }
 }
