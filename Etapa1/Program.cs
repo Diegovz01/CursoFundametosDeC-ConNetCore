@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CoreEscuela.Entidades;
 using static System.Console;
 
@@ -11,17 +12,31 @@ namespace Etapa1
             var escuela = new Escuela("Platzi Academy", 2012, TiposEscuela.Primaria, ciudad: "Bogota",
                                         pais: "Colombia"); // control + . => Ayuda CONSTRUCTOR
 
-            escuela.Cursos = new Curso[] {
-                new Curso(){ Nombre = "101"},
-                new Curso(){ Nombre = "102"},
-                new Curso(){ Nombre = "103"}
+            escuela.Cursos = new List<Curso>(){
+                new Curso(){ Nombre = "101", Jornada = TiposJornada.Mañana },
+                new Curso(){ Nombre = "201", Jornada = TiposJornada.Mañana },
+                new Curso(){ Nombre = "301", Jornada = TiposJornada.Mañana }
             };
-            // cw => Atajo, Escribir Console.WriteLine
-            // control + . => Generar Metodo
 
+            escuela.Cursos.Add(new Curso {Nombre = "102", Jornada = TiposJornada.Tarde });
+            escuela.Cursos.Add(new Curso {Nombre = "202", Jornada = TiposJornada.Tarde });
+
+            var otraColeccion = new List<Curso>(){
+                new Curso(){ Nombre = "401", Jornada = TiposJornada.Mañana },
+                new Curso(){ Nombre = "501", Jornada = TiposJornada.Mañana },
+                new Curso(){ Nombre = "601", Jornada = TiposJornada.Mañana }
+            };
+            
+            escuela.Cursos.AddRange(otraColeccion);
+            ImprimirCursosEscuela(escuela);
+
+            escuela.Cursos.RemoveAll((cur) => cur.Nombre == "301"); // Expresion Lambda( + corta) = Delegado
+
+            System.Console.WriteLine("===================");
             ImprimirCursosEscuela(escuela);
         }
-
+        // cw => Atajo, Escribir Console.WriteLine
+        // control + . => Generar Metodo
         private static void ImprimirCursosEscuela(Escuela escuela)
         {
             // alt + shift + mouse => Multiples punteros
