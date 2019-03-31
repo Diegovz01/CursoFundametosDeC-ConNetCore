@@ -1,48 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using CoreEscuela.Entidades;
+using CoreEscuela.Util;
 using static System.Console;
 
-namespace Etapa1
+namespace CoreEscuela
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var escuela = new Escuela("Platzi Academy", 2012, TiposEscuela.Primaria, ciudad: "Bogota",
-                                        pais: "Colombia"); // control + . => Ayuda CONSTRUCTOR
+            var engine = new EscuelaEngine();
+            engine.Inicializar();
+            Printer.WriteTitle("Bienvenidos a la escuela");
 
-            escuela.Cursos = new List<Curso>(){
-                new Curso(){ Nombre = "101", Jornada = TiposJornada.Mañana },
-                new Curso(){ Nombre = "201", Jornada = TiposJornada.Mañana },
-                new Curso(){ Nombre = "301", Jornada = TiposJornada.Mañana }
-            };
-
-            escuela.Cursos.Add(new Curso {Nombre = "102", Jornada = TiposJornada.Tarde });
-            escuela.Cursos.Add(new Curso {Nombre = "202", Jornada = TiposJornada.Tarde });
-
-            var otraColeccion = new List<Curso>(){
-                new Curso(){ Nombre = "401", Jornada = TiposJornada.Mañana },
-                new Curso(){ Nombre = "501", Jornada = TiposJornada.Mañana },
-                new Curso(){ Nombre = "601", Jornada = TiposJornada.Mañana }
-            };
-            
-            escuela.Cursos.AddRange(otraColeccion);
-            ImprimirCursosEscuela(escuela);
-
-            escuela.Cursos.RemoveAll((cur) => cur.Nombre == "301"); // Expresion Lambda( + corta) = Delegado
-
-            System.Console.WriteLine("===================");
-            ImprimirCursosEscuela(escuela);
+            ImprimirCursosEscuela(engine.Escuela);
         }
         // cw => Atajo, Escribir Console.WriteLine
         // control + . => Generar Metodo
         private static void ImprimirCursosEscuela(Escuela escuela)
         {
             // alt + shift + mouse => Multiples punteros
-            WriteLine("==========================");
-            WriteLine("Cursos de la Escueal");
-            WriteLine("==========================");
+            Printer.WriteTitle("Cursos de la Escuela");
 
             if (escuela.Cursos != null && escuela != null)
             {
@@ -50,42 +29,6 @@ namespace Etapa1
                 {
                     WriteLine($"Nombre {curso.Nombre}, Id {curso.UniqueId}");
                 }
-            }
-        }
-
-        private static void ImprimirCursosWhile(Curso[] arregloCursos)
-        {
-            int contador = 0;
-            while (contador < arregloCursos.Length)
-            {
-                System.Console.WriteLine($"Nombre {arregloCursos[contador].Nombre }, Id {arregloCursos[contador].UniqueId}");
-                contador++;
-            }
-        }
-
-        private static void ImprimirCursosDoWhile(Curso[] arregloCursos)
-        {
-            int contador = 0;
-            do
-            {
-                System.Console.WriteLine($"Nombre {arregloCursos[contador].Nombre }, Id {arregloCursos[contador].UniqueId}");
-                contador++;
-            } while (contador < arregloCursos.Length);
-        }
-
-        private static void ImprimirCursosFor(Curso[] arregloCursos)
-        {
-            for (int i = 0; i < arregloCursos.Length; i++)
-            {
-                System.Console.WriteLine($"Nombre {arregloCursos[i].Nombre }, Id {arregloCursos[i].UniqueId}");
-            }
-        }
-
-        private static void ImprimirCursosForEach(Curso[] arregloCursos)
-        {
-            foreach (var curso in arregloCursos)
-            {
-                System.Console.WriteLine($"Nombre {curso.Nombre }, Id {curso.UniqueId}");
             }
         }
     }
